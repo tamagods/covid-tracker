@@ -5,11 +5,51 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "build:cypress": "babel src -d lib",
+    "start": "next start",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "prettier": "prettier --write {*/,*/**/}*.{ts,tsx,scss}",
+    "run:cypress": "yarn run cypress open"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setupTests.ts"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "src"
+    ]
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "next": "10.1.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "sass": "^1.32.8"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.3",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
+  },
+  "lint-staged": {
+    "pages/**/*.{ts,tsx}": "yarn lint:fix"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn prettier"
+    }
   }
 }
